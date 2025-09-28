@@ -76,4 +76,62 @@ export class EditorAlumnos {
       console.log(listaAlumnos);
     }
   }
+
+  ordenaEdad(){
+    this.alumnos.sort((a, b) => a.edad - b.edad);
+    console.log(this.alumnos);
+  }
+
+  ordenaNombresAsc(){
+    this.alumnos.sort((a, b) => {
+      if(a.nombre > b.nombre) return 1
+      if(a.nombre < b.nombre) return -1
+      return 0
+    });
+  }
+
+  ordenaNombresDesc(){
+    this.ordenaNombresAsc();
+    this.alumnos.reverse();
+    console.log(this.alumnos);
+  }
+
+  borraAlumno(){
+    let result = this.alumnos.findIndex(
+        a => a.nombre==this.readAnswer("Inserta el nombre del alumno")
+    );
+    if (result != -1){
+      this.alumnos.splice( result, 1);
+      console.log(this.alumnos);
+    } else console.log("El alumno no existe");
+  }
+
+  nuevoAlumno(){
+    let codigo: string = this.readAnswer("Codigo del alumno:");
+    let nombre: string = this.readAnswer("Nombre del alumno:");
+    let ciudad: string = this.readAnswer("Ciudad del alumno:");
+    let edad: number = Number.parseInt(this.readAnswer("Edad del alumno"));
+
+    if(!Number.isNaN(edad)){
+      this.alumnos.push({codigo, nombre, ciudad, calificaciones: [], edad});
+      console.log(this.alumnos);
+    }else alert("Edad introducida no es valida")
+  }
+
+  nuevaAsignatura(){
+    let nombre: string = this.readAnswer("Nombre del alumno:");
+    let alumno =  this.alumnos.find(a => a.nombre == nombre);
+
+    if(alumno != undefined){
+      let asignatura: string = this.readAnswer("Nombre de la asignatura:");
+      let nota: number = Number.parseInt(this.readAnswer("Nota del alumno:"));
+      if (!isNaN(nota)){
+        let a = alumno.calificaciones.find(a => a.asignatura == asignatura);
+        if (a == undefined){
+          alumno.calificaciones.push({asignatura, nota});
+          console.log(alumno.calificaciones);
+        }else a.nota = nota;
+      }else console.log("Edad introducidad no es valida");
+    }else console.log("El alumno no existe");
+  }
 }
