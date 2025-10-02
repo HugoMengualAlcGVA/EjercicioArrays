@@ -1,26 +1,14 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ALUMNOS } from '../../models/alumnos';
+import { Injectable } from '@angular/core';
+import { ALUMNOS } from '../models/alumnos';
 
-@Component({
-  selector: 'app-editor-alumnos',
-  imports: [],
-  templateUrl: './editor-alumnos.html',
-  styleUrl: './editor-alumnos.css'
+@Injectable({
+  providedIn: 'root'
 })
-export class EditorAlumnos {
+
+export class AlumnosService {
   alumnos = ALUMNOS;
 
-  readAnswer(p: string): string{
-    let answer = prompt(p);
-    if(answer != null && answer !="") return answer; else{
-      alert("No se introdujo ningun nombre");
-      return ""
-    } 
-  }
-
-  verNotasAlumno(){
-    let nombreAlumno: string = this.readAnswer("Inserta el nombre del alumno");
+  verNotasAlumno(nombreAlumno: string){
     if (nombreAlumno!=""){
       let alumno = this.alumnos.find(a=>a.nombre==nombreAlumno);
       if(alumno!=undefined){
@@ -59,8 +47,8 @@ export class EditorAlumnos {
     console.log(this.alumnos)
   }
 
-  alumnosCiudad(){
-    let nombreCiudad: string = this.readAnswer("Inserta el nombre de la ciudad");
+  alumnosCiudad(nombreAlumno: string){
+    let nombreCiudad: string = nombreAlumno;
     let listaAlumnos: string[] = [];
     if(nombreCiudad!=""){
       this.alumnos.filter(a => a.ciudad==nombreCiudad).forEach(a => listaAlumnos.push(a.nombre))
@@ -68,8 +56,7 @@ export class EditorAlumnos {
     }
   }
 
-  alumnosCurso(){
-    let curso: string = this.readAnswer("Curso:");
+  alumnosCurso(curso: string){
     let listaAlumnos: string[] = [];
     if(curso!=""){
       this.alumnos.filter(a => a.codigo.split("-")[1]==curso).forEach(a => listaAlumnos.push(a.nombre))
@@ -96,7 +83,7 @@ export class EditorAlumnos {
     console.log(this.alumnos);
   }
 
-  borraAlumno(){
+  /*borraAlumno(nombreAlumno: string){
     let result = this.alumnos.findIndex(
         a => a.nombre==this.readAnswer("Inserta el nombre del alumno")
     );
@@ -133,5 +120,6 @@ export class EditorAlumnos {
         }else a.nota = nota;
       }else console.log("Edad introducidad no es valida");
     }else console.log("El alumno no existe");
-  }
+  }*/
 }
+
