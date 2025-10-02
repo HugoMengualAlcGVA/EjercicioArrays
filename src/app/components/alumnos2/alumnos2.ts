@@ -8,7 +8,7 @@ import { AlumnosService } from '../../services/alumnos-service';
   styleUrl: './alumnos2.css'
 })
 export class Alumnos2 {
-  /*constructor(private miServicio: AlumnosService) { }*/ //Angular v.15<
+  /*constructor(private miServicio: AlumnosService) { }*/ //Para verisones de Angular inferiores a v.15
   miServicio = inject(AlumnosService) 
 
   readAnswer(p: string): string{
